@@ -159,6 +159,85 @@ source for messages, so they’re effectively tied to an input endpoint.
 
 </p>
 
+<h2>PROCESSOR</h2>
+<p>
+The processor is a core Camel concept that represents a node capable of using, creat-
+ing, or modifying an incoming exchange. During routing, exchanges flow from one
+processor to another; as such, you can think of a route as a graph having specialized
+processors as the nodes, and lines that connect the output of one processor to the
+input of another. Many of the processors are implementations of EIP s, but one could
+easily implement their own custom processor and insert it into a route.
+</p>
+
+<h2>PROCESSOR</h2>
+<p>
+Components are the main extension point in Camel. To date, there are over 80 com-
+ponents in the Camel ecosystem that range in function from data transports, to DSL s,
+data formats, and so on. You can even create your own components for Camel.
+
+From a programming point of view, components are fairly simple: they’re associ-
+ated with a name that’s used in a URI , and they act as a factory of endpoints. For exam-
+ple, a FileComponent is referred to by file in a URI , and it creates FileEndpoint s.
+The endpoint is perhaps an even more fundamental concept in Camel.
+</p>
+
+<h2>ENDPOINT</h2>
+<p>
+An endpoint is the Camel abstraction that models the end of a channel through
+which a system can send or receive messages.
+
+In a nutshell, an endpoint acts as a factory for creating consumers
+and producers that are capable of receiving and sending messages to a particular end-
+point.
+</p>
+
+<h2>PRODUCER</h2>
+<p>
+A producer is the Camel abstraction that refers to an entity capable of creating and
+sending a message to an endpoint.
+
+When a message needs to be sent to an endpoint, the producer will create an
+exchange and populate it with data compatible with that particular endpoint. For
+example, a FileProducer will write the message body to a file.
+
+A JmsProducer , on the other hand, will map the Camel message to
+a javax.jms.Message before sending it to a JMS destination. This is an important 
+feature in Camel, because it hides the complexity of interacting with particular
+transports. All you need to do is route a message to an endpoint, and the producer 
+does the heavy lifting.
+</p>
+
+<h2>CONSUMER</h2>
+<p>
+A consumer is the service that receives messages produced by a producer, wraps them
+in an exchange, and sends them to be processed. Consumers are the source of the
+exchanges being routed in Camel.
+
+The consumer create a new exchange, a consumer will use the endpoint that
+wraps the payload being consumed. A processor is then used to initiate the routing of
+the exchange in Camel using the routing engine.
+</p>
+
+<h2>EVENT-DRIVEN CONSUMER</h2>
+<p>
+This kind of consumer is mostly associated with client-server architectures and web
+services. It’s also referred to as an asynchronous receiver in the EIP world. An event-driven
+consumer listens on a particular messaging channel usually a TCP/IP port or a JMS queue,
+and waits for a client to send messages to it. When a message arrives, the consumer wakes up 
+and takes the message for processing.
+</p>
+
+<h2>POLLING CONSUMER</h2>
+<p>
+In contrast to the event-driven consumer, the polling consumer actively goes and fetches
+messages from a particular source, such as an FTP server. The olling consumer is also known 
+as a synchronous receiver in EIP lingo, because it won’t poll for more messages until it has 
+finished processing the current message. A common flavor of the polling consumer is the 
+scheduled polling consumer, which polls at scheduled intervals. File, FTP , and email 
+transports all use scheduled polling consumers.
+</p>
+
+
 
 
 
